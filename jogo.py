@@ -29,51 +29,6 @@ def fase_um():
 			self.surface = pygame.image.load(imagem).convert()
 			self.surface.set_colorkey((0,255,0))
 				
-	class Plataforma2:
-		def __init__(self):
-			self.rect_base = pygame.image.load("Imagens/teste.png").get_rect()
-			self.rect_base.x = 250
-			self.rect_base.y = 350
-		def set_surface(self, imagem):
-			self.surface = pygame.image.load(imagem).convert()
-			self.surface.set_colorkey((0,255,0))
-
-	class Plataforma3:
-		def __init__(self):
-			self.rect_base = pygame.image.load("Imagens/teste.png").get_rect()
-			self.rect_base.x = 80
-			self.rect_base.y = 250
-		def set_surface(self, imagem):
-			self.surface = pygame.image.load(imagem).convert()
-			self.surface.set_colorkey((0,255,0))
-
-	class Plataforma4:
-		def __init__(self):
-			self.rect_base = pygame.image.load("Imagens/teste.png").get_rect()
-			self.rect_base.x = 250
-			self.rect_base.y = 150
-		def set_surface(self, imagem):
-			self.surface = pygame.image.load(imagem).convert()
-			self.surface.set_colorkey((0,255,0))
-
-	class Plataforma5:
-		def __init__(self):
-			self.rect_base = pygame.image.load("Imagens/teste.png").get_rect()
-			self.rect_base.x = 250
-			self.rect_base.y = 150
-		def set_surface(self, imagem):
-			self.surface = pygame.image.load(imagem).convert()
-			self.surface.set_colorkey((0,255,0))
-
-	class Plataforma6:
-		def __init__(self):
-			self.rect_base = pygame.image.load("Imagens/teste.png").get_rect()
-			self.rect_base.x = 410
-			self.rect_base.y = 50
-		def set_surface(self, imagem):
-			self.surface = pygame.image.load(imagem).convert()
-			self.surface.set_colorkey((0,255,0))
-
 	class Chao:
 		def __init__(self):
 			self.rect_chao = pygame.image.load("Imagens/chao_1.png").get_rect()
