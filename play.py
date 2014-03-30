@@ -23,31 +23,28 @@ class Personagem(object):
 		self.surface.set_colorkey((0,255,0))
 		
 		#posicao do puto
-		self.x = 0
-		self.y = 500
+		self.rect.x = 0
+		self.rect.y = 500
 	
 	def key_pressed(self, key):
 		
 		if key == K_DOWN:
-			if (self.y + self.move_speed) <= 500:
-				self.y += self.move_speed
+			if (self.rect.y + self.move_speed) <= 500:
+				self.rect.y += self.move_speed
 								
 		if key == K_UP:
-			if (self.y - self.move_speed) >= 400:
-				self.y -= self.move_speed
+			if (self.rect.y - self.move_speed) >= 400:
+				self.rect.y -= self.move_speed
 		
 		if key == K_LEFT:
-			if (self.x - self.move_speed) >= 0:
-				self.x -= self.move_speed
+			if (self.rect.x - self.move_speed) >= 0:
+				self.rect.x -= self.move_speed
 				
 		if key == K_RIGHT:
-			if (self.x + self.move_speed) <= 600:
-				self.x += self.move_speed
+			if (self.rect.x + self.move_speed) <= 600:
+				self.rect.x += self.move_speed
 
-		self.rect.x = self.x
-		self.rect.y = self.y
-
-		print "Y:" , self.y , " X: " , self.x
+		print "Y:" , self.rect.y , " X: " , self.rect.x
 		
 	# Poe uma imagem no objeto: 
 	def set_surface(self, imagem):
@@ -55,7 +52,7 @@ class Personagem(object):
 		self.surface.set_colorkey((0,255,0))
 		
 	def draw(self, surface):
-		surface.blit(self.surface, (self.x, self.y))
+		surface.blit(self.surface, self.rect)
 		
 
 class Ceu(object):
@@ -157,22 +154,22 @@ class Luz(object):
 		self.surface.set_colorkey((0,0,0))
 		
 		#posicao do puto
-		self.x = 515
-		self.y = 450
-		
-		self.rect = self.surface.get_rect()
+		self.rect.x = 515
+		self.rect.y = 450
 
 	def set_surface(self, imagem):
 		self.surface = pygame.image.load(imagem).convert()
 		self.surface.set_colorkey((0,0,0))
 		self.rect = surface.get_rect()
+		self.rect.x = 515
+		self.rect.y = 450
 		
 	def draw(self, surface):
-		surface.blit(self.surface, (self.x, self.y))
+		surface.blit(self.surface, self.rect)
 			
 class Porta_Esquerda(object):
 	
-	has_to_open = False
+	has_to_open = False	
 	
 	def __init__(self):
 		self.surface = pygame.image.load("Imagens/portaAutomatica/porta.png").convert()
@@ -187,17 +184,19 @@ class Porta_Esquerda(object):
 		self.surface.set_colorkey((0,0,0))
 	
 	def abre_porta(self):
-		self.x -= 1
-		if self.x == 408:
-			self.x = 515
+		if self.x >= 408:
+			self.x -= 1
+			
 	def fecha_porta(self):
-		while(self.x != 515):
-			self.x += 2
+		if self.x <= 515:
+			self.x += 1
 	
 	def draw(self, surface):
 		if self.has_to_open:
 			self.abre_porta()
-	
+		else:
+			self.fecha_porta()
+			
 		surface.blit(self.surface, (self.x, self.y))
 
 class Porta_Direita(object):
@@ -213,9 +212,12 @@ class Porta_Direita(object):
 		self.y = 204
 
 	def abre_porta(self):
-		self.x += 1
-		if self.x == 730:
-			self.x = 623
+		if self.x <= 730:
+			self.x += 1
+			
+	def fecha_porta(self):
+		if self.x >= 623:
+			self.x -= 1
 
 	def set_surface(self, imagem):
 		self.surface = pygame.image.load(imagem).convert()
@@ -224,6 +226,8 @@ class Porta_Direita(object):
 	def draw(self, surface):
 		if self.has_to_open:
 			self.abre_porta()
+		else:
+			self.fecha_porta()
 		
 		surface.blit(self.surface, (self.x, self.y))
 
@@ -232,9 +236,11 @@ class Porta_Direita(object):
 def colisao_luz_personagem():
 	
 	if personagem.rect.colliderect(luz.rect) == True:
-		print "algo"
 		portaDireita.has_to_open = True
 		portaEsquerda.has_to_open = True
+	else:
+		portaDireita.has_to_open = False
+		portaEsquerda.has_to_open = False
 	#else:
 #		print pesq.fecha_porta()
 
