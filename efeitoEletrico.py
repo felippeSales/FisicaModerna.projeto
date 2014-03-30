@@ -1,4 +1,4 @@
-# coding: utf- 08
+# coding: utf- 8
 
 import pygame
 import random
@@ -6,33 +6,60 @@ import time
 import sys
 
 from pygame.locals import *
+
+pygame.init()
+screen = pygame.display.set_mode((800,600),0,32)
+pygame.display.set_caption("Efeito Foto Eletrico")
+
+class EfeitoVoltaico():
+	circuito = (pygame.image.load("Imagens/PlacasDeNP.png"),(100,100))
+	eletron  = (pygame.image.load("Imagens/eletron.png"),(600,0))
+	lampada = 	(pygame.image.load("Imagens/lampadaDesligada.png"),(552,300))
+	back  = (pygame.image.load("Imagens/background.png"),(0,0))
 	
-class experimento:
-	def __init__(self):
-			self.comprimento_de_onda = 500.0
-			self.intensidade = 0.0
-			self.corrente = 0.0
+	surface = pygame.image.load("Imagens/radiacao.png").convert()
+	surface.set_colorkey((0,0,0))
+	raio = (surface,(10,10))
+	sol = (pygame.image.load("Imagens/InkSun.png"),(0,0))
+	ceu = (pygame.image.load("Imagens/radiacao.png"),(50,50))
+	raio_pos = (50,50)
+	
+	circuito[0].set_colorkey((255,255,255))
+	eletron[0].set_colorkey((255,255,255))
+	lampada[0].set_colorkey((255,255,255))
+	
+	sol[0].set_colorkey((255,255,255))
+	
+	def set_background(self, imagem):
+		self.background = pygame.image.load(imagem)
+		
+	
+	def atualiza_tela(self):
+		# Atualiza a tela:
+		screen.blit(self.back[0],self.back[1])
+		screen.blit(self.circuito[0],self.circuito[1])
+		screen.blit(self.eletron[0],self.eletron[1])
+		screen.blit(self.lampada[0],self.lampada[1])
+		screen.blit(self.sol[0],self.sol[1])
+		screen.blit(self.raio[0], self.raio_pos)
+		
+		self.raio_pos = (self.raio_pos[0] + 1, self.raio_pos[1] + 1)
+		
+		if(self.raio_pos[1] == 170):
+			self.raio_pos = (50,50)
 			
-class luz:
-	def _init_(self):
-		self.intensidade = 0.0
-		self.comprimento_de_onda = 0.0
-	def mudaCor(intensidade, cdo)
-		self.intensidade = intensidade
-		self.comprimento_de_onda  = cdo
-class eletron:
-	def _init_(self)
-		self.velocidade = 0
-	def mudaVelocidade(nova)
-		self.vecocidade =nova
+		pygame.display.flip()
+		
+	def run(self):     
+		
+		while True:
+			for event in pygame.event.get():
+				# Fecha o jogo
+				if event.type == QUIT:
+					sys.exit()
+				
+			self.atualiza_tela()
+		
+exp = EfeitoVoltaico()
+exp.run()	
 	
-	
-	
-def main():
-		experimento = Experimento()
-		experimento.set_background("Imagens/background_2.png")
-		experimento.character.set_surface("Imagens/square.png")
-		experimento.base.set_surface("Imagens/base_1.png")
-		experimento.chao.set_surface("Imagens/chao_1.png")
-		experimento.rock.set_surface("Imagens/pedra.png")
-		experimento.run()

@@ -1,4 +1,4 @@
-# coding: utf- 08
+# coding: utf- 8
 
 import pygame
 import random
