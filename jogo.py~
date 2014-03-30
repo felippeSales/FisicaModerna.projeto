@@ -122,7 +122,7 @@ def fase_um():
 			self.x_p = 0
 			self.direcao = None
 			game.character.set_surface("Imagens/square.png")
-			self.screen.	(self.character.surface,(self.character.rect_sq))
+			self.screen.blit(self.character.surface,(self.character.rect_sq))
 			
 		def muda_fase(self):
 			if self.camera3 == True:
