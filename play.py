@@ -15,35 +15,65 @@ pygame.display.set_caption("Efeito Foto Elétrico")
 class Personagem(object):
 	
 	move_speed = 20
+	pode_passar = False
+	esta_atraz = False
 	
 	def __init__(self):
 		
-		self.surface = pygame.image.load("Imagens/square.png").convert()
-		self.rect = pygame.image.load("Imagens/square.png").get_rect()
+		self.surface = pygame.image.load("Imagens/portaAutomatica/square.png").convert()
+		self.rect = pygame.image.load("Imagens/portaAutomatica/square.png").get_rect()
 		self.surface.set_colorkey((0,255,0))
 		
 		#posicao do puto
-		self.rect.x = 0
+		self.rect.x = 170
 		self.rect.y = 500
+	
+	def verifica_pode_subir(self):
+		if self.pode_passar:
+			if self.rect.y - self.move_speed >= 350:
+				return True
+		
+		return False
+
+	def verifia_esta_atras(self):
+		if self.rect.y == 360:
+			self.esta_atraz = True
+	
+		else:
+			self.esta_atraz = False
+			
+	def reset(self):
+		self.rect.x = 170
+		self.rect.y = 500
+		self.set_surface("Imagens/portaAutomatica/square.png")
 	
 	def key_pressed(self, key):
 		
 		if key == K_DOWN:
-			if (self.rect.y + self.move_speed) <= 500:
+			if (self.rect.y + self.move_speed <= 500) and self.rect.y != 360:
 				self.rect.y += self.move_speed
 								
 		if key == K_UP:
 			if (self.rect.y - self.move_speed) >= 400:
 				self.rect.y -= self.move_speed
+			elif self.verifica_pode_subir():
+				self.rect.y -= self.move_speed
+			
+			self.set_surface("Imagens/portaAutomatica/square.png")
 		
 		if key == K_LEFT:
 			if (self.rect.x - self.move_speed) >= 0:
 				self.rect.x -= self.move_speed
+				self.set_surface("Imagens/portaAutomatica/square_left.png")
 				
 		if key == K_RIGHT:
 			if (self.rect.x + self.move_speed) <= 600:
 				self.rect.x += self.move_speed
-
+				self.set_surface("Imagens/portaAutomatica/square_right.png")
+		if key == K_r:
+			self.reset()
+			
+		self.verifia_esta_atras()
 		print "Y:" , self.rect.y , " X: " , self.rect.x
 		
 	# Poe uma imagem no objeto: 
@@ -54,7 +84,6 @@ class Personagem(object):
 	def draw(self, surface):
 		surface.blit(self.surface, self.rect)
 		
-
 class Ceu(object):
 	def __init__(self):
 		self.surface = pygame.image.load("Imagens/portaAutomatica/ceu.png").convert()
@@ -121,7 +150,7 @@ class Sensor(object):
 			
 class Raio(object):
 	def __init__(self):
-		self.surface = pygame.image.load("Imagens/portaAutomatica/raioVertical.png").convert()
+		self.surface = pygame.image.load("Imagens/portaAutomatica/ondaVertical.png").convert()
 		
 		self.surface.set_colorkey((0,0,0))
 		
@@ -155,7 +184,7 @@ class Luz(object):
 		
 		#posicao do puto
 		self.rect.x = 515
-		self.rect.y = 450
+		self.rect.y = 430
 
 	def set_surface(self, imagem):
 		self.surface = pygame.image.load(imagem).convert()
@@ -231,44 +260,52 @@ class Porta_Direita(object):
 		
 		surface.blit(self.surface, (self.x, self.y))
 
-
-
 def colisao_luz_personagem():
 	
 	if personagem.rect.colliderect(luz.rect) == True:
 		portaDireita.has_to_open = True
 		portaEsquerda.has_to_open = True
+		personagem.pode_passar = True
 	else:
 		portaDireita.has_to_open = False
 		portaEsquerda.has_to_open = False
-	#else:
-#		print pesq.fecha_porta()
-
+		personagem.pode_passar = False
+	
 def atualiza_tela():				
+	
+	if personagem.esta_atraz == False:	
+		ceu.draw(screen)
+		solo.draw(screen)
+		parede.draw(screen)
+		sensor.draw(screen)
+		luz.draw(screen)
 		
-	ceu.draw(screen)
-	solo.draw(screen)
-	parede.draw(screen)
-	sensor.draw(screen)
-	luz.draw(screen)
-	
-	portaEsquerda.draw(screen)
-	portaDireita.draw(screen)
-	
-	personagem.draw(screen)
-	
-#	raio.draw(screen)
-	
+		personagem.draw(screen)
+		
+		portaEsquerda.draw(screen)
+		portaDireita.draw(screen)
+		
+		raio.draw(screen)
+	else:
+		ceu.draw(screen)
+		solo.draw(screen)
+		personagem.draw(screen)
+		parede.draw(screen)
+		sensor.draw(screen)
+		luz.draw(screen)
+		portaEsquerda.draw(screen)
+		portaDireita.draw(screen)
+		
+		raio.draw(screen)
 		
 	pygame.display.flip()
-
-
 
 ceu = Ceu()
 solo = Solo()
 parede = Parede()
 sensor = Sensor()
 personagem = Personagem()
+raio = Raio()
 
 portaEsquerda = Porta_Esquerda()
 portaDireita = Porta_Direita()
