@@ -149,16 +149,21 @@ class Sensor(object):
 		surface.blit(self.surface, (self.x, self.y))
 			
 class Raio(object):
+	
+	desenha = True
+	
 	def __init__(self):
 		self.surface = pygame.image.load("Imagens/portaAutomatica/ondaVertical.png").convert()
 		
 		self.surface.set_colorkey((0,0,0))
 		
-		#posicao do puto
-		self.x = 570
-		self.y = 150
 		
 		self.rect = self.surface.get_rect()
+		
+		#posicao do puto
+		self.rect.x = 570
+		self.rect.y = 150
+		
 
 	def set_surface(self, imagem):
 		self.surface = pygame.image.load(imagem).convert()
@@ -166,15 +171,45 @@ class Raio(object):
 		self.rect = surface.get_rect()
 		
 	def draw(self, surface):
-		self.y += 1
-		surface.blit(self.surface, (self.x, self.y))
-		
-		if self.y >= 440:
-			 self.y = 150
-			 
-		self.rect.x = self.x
-		self.rect.y = self.y
+		if self.desenha:
+			self.rect.y += 2
+			
+			surface.blit(self.surface, self.rect)
+			
+			if self.rect.y >= 440:
+				 self.rect.y = 150
 
+class RaioInvertido(object):
+	
+	desenha = False
+	
+	def __init__(self):
+		self.surface = pygame.image.load("Imagens/portaAutomatica/ondaVerticalInvertida.png").convert()
+		
+		self.surface.set_colorkey((0,0,0))
+		
+		self.rect = self.surface.get_rect()
+		
+		#posicao do puto
+		self.rect.x = 570
+		self.rect.y = 150
+		
+
+	def set_surface(self, imagem):
+		self.surface = pygame.image.load(imagem).convert()
+		self.surface.set_colorkey((0,0,0))
+		self.rect = surface.get_rect()
+		
+	def draw(self, surface):
+		print "oi"
+		if self.desenha:
+			self.rect.y -= 2
+			
+			surface.blit(self.surface, self.rect)
+			print "oi"
+			if self.rect.y <= 130:
+				self.desenha = False
+	
 class Luz(object):
 	def __init__(self):
 		self.surface = pygame.image.load("Imagens/portaAutomatica/areaLuz.png").convert()
@@ -259,9 +294,8 @@ class Porta_Direita(object):
 			self.fecha_porta()
 		
 		surface.blit(self.surface, (self.x, self.y))
-
+		
 def colisao_luz_personagem():
-	
 	if personagem.rect.colliderect(luz.rect) == True:
 		portaDireita.has_to_open = True
 		portaEsquerda.has_to_open = True
@@ -270,35 +304,52 @@ def colisao_luz_personagem():
 		portaDireita.has_to_open = False
 		portaEsquerda.has_to_open = False
 		personagem.pode_passar = False
+
+def escolhe_Animacao():
+	if raio.desenha:
+		raio.desenha = False
+	else:
+		raio.desenha = True
 	
 def atualiza_tela():				
 	
 	if personagem.esta_atraz == False:	
+		luz.draw(screen)
 		ceu.draw(screen)
 		solo.draw(screen)
 		parede.draw(screen)
 		sensor.draw(screen)
-		luz.draw(screen)
-		
-		personagem.draw(screen)
-		
+	
 		portaEsquerda.draw(screen)
 		portaDireita.draw(screen)
-		
+	
+		personagem.draw(screen)
+			
+		if not raioInvertido.desenha and not raio.desenha:
+			raioInvertido.rect.y = personagem.rect.y
+			raioInvertido.rect.x = personagem.rect.x
+			raioInvertido.desenha = True
+			
+		raioInvertido.draw(screen)
 		raio.draw(screen)
+		
 	else:
 		ceu.draw(screen)
+		luz.draw(screen)
 		solo.draw(screen)
 		personagem.draw(screen)
 		parede.draw(screen)
 		sensor.draw(screen)
-		luz.draw(screen)
+
 		portaEsquerda.draw(screen)
 		portaDireita.draw(screen)
 		
+		
+		raioInvertido.draw(screen)
 		raio.draw(screen)
 		
 	pygame.display.flip()
+
 
 ceu = Ceu()
 solo = Solo()
@@ -306,6 +357,7 @@ parede = Parede()
 sensor = Sensor()
 personagem = Personagem()
 raio = Raio()
+raioInvertido = RaioInvertido()
 
 portaEsquerda = Porta_Esquerda()
 portaDireita = Porta_Direita()
@@ -320,7 +372,10 @@ while running:
 		if event.type == QUIT:
 			sys.exit()
 		if event.type == KEYDOWN:
-			personagem.key_pressed(event.key)
+			if event.key == K_m:
+				escolhe_Animacao()
+			else:
+				personagem.key_pressed(event.key)
 	
 	colisao_luz_personagem()
 	
