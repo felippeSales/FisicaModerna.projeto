@@ -74,7 +74,7 @@ class Personagem(object):
 			self.reset()
 			
 		self.verifia_esta_atras()
-		#print "Y:" , self.rect.y , " X: " , self.rect.x
+		print "Y:" , self.rect.y , " X: " , self.rect.x
 		
 	# Poe uma imagem no objeto: 
 	def set_surface(self, imagem):
