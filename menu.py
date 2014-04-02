@@ -1,7 +1,8 @@
 import pygame
 
-pygame.init()
+import subprocess
 
+pygame.init()
 
 class MenuItem(pygame.font.Font):
     def __init__(self, text, font=None, font_size=54,
@@ -77,6 +78,12 @@ class GameMenu():
                     item.set_italic(True)
                     if(item.text == 'Sair' and pygame.mouse.get_pressed()[0]):
 						mainloop = False
+                    elif(item.text == 'Sensor Fotoeletrico' and pygame.mouse.get_pressed()[0]):
+						retcode = subprocess.call('python play.py', shell=True)
+					#	mainloop = False
+						
+					#if(item.text == 'Sensor Fotoeletrico' and pygame.mouse.get_pressed()[0]):
+					#	retcode = call(play.py)
                 else:
                     item.set_font_color((255, 255, 255))
                     item.set_italic(False)
