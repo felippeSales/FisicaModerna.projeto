@@ -42,7 +42,7 @@ class Sol():
 		
 	def atualizaSol(self ,pos):
 		if pos > 0 and pos < 5:
-			self.surface = pygame.image.load("Imagens/solMedio.png").convert()
+			self.surface = pygame.image.load("Imagens/sol.png").convert()
 			self.surface.set_colorkey((0,0,0))
 		elif pos >= 5:
 			self.surface = pygame.image.load("Imagens/InkSun.png").convert()
@@ -68,6 +68,7 @@ class Indicador():
 		self.pos=0
 		self.surface = pygame.image.load("Imagens/indicador.png").convert()
 		self.surface.set_colorkey((0,0,0))
+
 		self.lampada = 	(pygame.image.load("Imagens/lampadaDesligada.png"),(552,300))
 		self.lampada_on = 	(pygame.image.load("Imagens/lampadaLigada.png"),(552,300))
 		#posicao do puto
@@ -104,6 +105,42 @@ class Indicador():
 		else:
 			screen.blit(self.lampada[0],self.lampada[1])
 
+class IndicadorH():
+	move_speed = 25
+	
+	
+	def __init__(self):
+		self.sol = Sol()
+		self.pos=4
+		self.surface = pygame.image.load("Imagens/indicadorh.png").convert()
+		self.surface.set_colorkey((0,0,0))
+
+		#posicao do puto
+		self.x = 687
+		self.y = 230
+		
+	def key_pressed(self, key):
+		if key == K_UP:
+			if self.pos > 0:
+				self.pos -= 1
+				self.y -= self.move_speed
+				self.sol.atualizaSol(self.pos)
+		if key == K_DOWN:
+			if self.pos < 8:
+				self.pos += 1
+				self.y += self.move_speed
+				self.sol.atualizaSol(self.pos)
+				
+				
+		
+			
+	def set_surface(self, imagem):
+		self.surface = pygame.image.load(imagem).convert()
+		self.surface.set_colorkey((0,255,0))
+	def draw(self, surface):
+		surface.blit(self.surface, (self.x, self.y))
+		self.sol.draw(screen, self.pos)
+
 
 
 
@@ -116,11 +153,12 @@ class EfeitoVoltaico():
 	surface.set_colorkey((0,0,0))
 	raio = (surface,(10,10))
 	intensidade_bar = (pygame.image.load("Imagens/barra_intensidade.png"),(500,0))
-	
+	frequencia_bar = (pygame.image.load("Imagens/frequencia.png"),(550,80))
 	raio_pos = (50,50)
 	cursor_pos =(527, 37)
 	
 	intensidade_bar[0].set_colorkey((255,255,255))
+	frequencia_bar[0].set_colorkey((255,255,255))
 	circuito[0].set_colorkey((255,255,255))
 	eletron[0].set_colorkey((255,255,255))
 	
@@ -133,10 +171,12 @@ class EfeitoVoltaico():
 		
 		screen.blit(self.back[0],self.back[1])
 		screen.blit(self.intensidade_bar[0], self.intensidade_bar[1])
+		screen.blit(self.frequencia_bar[0], self.frequencia_bar[1])
 		screen.blit(self.circuito[0],self.circuito[1])
 		screen.blit(self.eletron[0],self.eletron[1])
 		
 		indicador.draw(screen)
+		indicadorh.draw(screen)
 		
 		pygame.display.flip()
 		
@@ -149,6 +189,7 @@ class EfeitoVoltaico():
 					sys.exit()
 				if event.type == KEYDOWN:
 					indicador.key_pressed(event.key)
+					indicadorh.key_pressed(event.key)
 				
 			self.atualiza_tela()
 
@@ -157,6 +198,7 @@ raios = []
 for i in range(0,8):
 	raios.append(Raio())
 indicador = Indicador()			
+indicadorh = IndicadorH()
 exp = EfeitoVoltaico()
 exp.run()	
 	
