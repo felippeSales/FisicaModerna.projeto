@@ -78,11 +78,11 @@ class FuncoesFisicas():
 	def draw(self, surface, intensidade, frequencia):
 		amp = self.calcula_corrente(self.pegacor(frequencia), self.funcaoTrabalhoPotassio, intensidade)	/ self.max	
 		variacao =  int(round(amp * 100))
+		
 		for i in range(0, variacao+1):
 			surface.blit(self.surface, (self.x, self.y - (i*4)))
 			if i > 0:
-				if i > 1 and eletrons[i-1].getY() == 540
-						eletrons[i].draw(screen)
+				eletrons[i].draw(screen)
 			
 		
 		if variacao > 0:
@@ -111,25 +111,25 @@ class Eletron():
 		self.surface.set_colorkey((0,0,0))
 	def move(self, vel):
 		if(self.x == 227 and self.y >= 470 and self.y < 540):
-			self.y += self.movespeed*(8-vel)	
+			self.y += self.movespeed*(3-vel)	
 		elif(self.y >=540  and self.x >= 227 and self.x < 532):
 			self.y = 540
-			self.x += self.movespeed*(8-vel)
+			self.x += self.movespeed*(3-vel)
 		elif(self.x >=532 and self.y <= 540 and self.y > 100):
 			self.x = 532
-			self.y -= self.movespeed*(8-vel)
+			self.y -= self.movespeed*(3-vel)
 		elif(self.y <= 100 and self.x <= 532 and self.x > 227):
 			self.y = 100
-			self.x -= self.movespeed*(8-vel)
+			self.x -= self.movespeed*(3-vel)
 		elif(self.x <= 227 and self.y >= 100 and self.y < 222):
 			self.x = 227
-			self.y += self.movespeed*(8-vel)
+			self.y += self.movespeed*(3-vel)
 		else:
 			self.x = 227
 			self.y = 470
 	def draw(self, surface):
 		surface.blit(self.surface, (self.x, self.y))
-		self.move(7)
+		self.move(indicadorh.getpos())
 
 class Raio():
 	movespeed = 1
@@ -249,7 +249,7 @@ class Indicador():
 		self.surface = pygame.image.load(imagem).convert()
 		self.surface.set_colorkey((0,255,0))
 	def draw(self, surface):
-		funcoes.draw(screen, indicador.getPos(), indicadorh.getpos())
+		
 		surface.blit(self.surface, (self.x, self.y))
 		self.sol.draw(screen, self.pos)
 		
@@ -291,7 +291,7 @@ class IndicadorH():
 		self.surface.set_colorkey((0,255,0))
 	def draw(self, surface):
 		surface.blit(self.surface, (self.x, self.y))
-		funcoes.draw(screen, indicador.getPos(), indicadorh.getpos())
+		
 
 
 
@@ -325,7 +325,9 @@ class EfeitoVoltaico():
 		
 		indicador.draw(screen)
 		indicadorh.draw(screen)
+		funcoes.draw(screen, indicador.getPos(), indicadorh.getpos())
 		screen.blit(self.amperimetro[0], self.amperimetro[1])
+		
 		pygame.display.flip()
 		
 	def run(self):     
