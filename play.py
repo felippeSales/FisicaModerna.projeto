@@ -12,6 +12,15 @@ pygame.init()
 screen = pygame.display.set_mode((800,600),0,32)
 pygame.display.set_caption("Efeito Foto Elétrico")
 
+		
+font = pygame.font.Font(None, 36)
+text = font.render("Aperte R  para reiniciar ou M para mudar o tipo de sensor", 1, (230,230,230))
+textpos = text.get_rect()
+textpos.y += 30
+textpos.centerx = screen.get_rect().centerx
+
+drawText = True
+
 class Personagem(object):
 	
 	move_speed = 20
@@ -347,9 +356,11 @@ def atualiza_tela():
 		
 		raioInvertido.draw(screen)
 		raio.draw(screen)
+	
+	if drawText:
+		screen.blit(text, textpos)
 		
 	pygame.display.flip()
-
 
 ceu = Ceu()
 solo = Solo()
@@ -358,7 +369,6 @@ sensor = Sensor()
 personagem = Personagem()
 raio = Raio()
 raioInvertido = RaioInvertido()
-
 portaEsquerda = Porta_Esquerda()
 portaDireita = Porta_Direita()
 luz = Luz()
@@ -372,10 +382,16 @@ while running:
 		if event.type == QUIT:
 			sys.exit()
 		if event.type == KEYDOWN:
+			
+			drawText = False
+			
 			if event.key == K_m:
 				escolhe_Animacao()
 			else:
 				personagem.key_pressed(event.key)
+				
+				if event.key == K_r:	
+					drawText = True
 	
 	colisao_luz_personagem()
 	
