@@ -39,7 +39,7 @@ class GameMenu():
     def __init__(self, screen, items, bg_color=(255,255,255), font=None, font_size=54,
                     font_color=(255, 255, 255)):
         self.screen = screen
-        self.screen.blit(pygame.image.load("Imagens/luzes.jpg"), (0,0))
+        self.screen.blit(pygame.image.load("luzes.jpg"), (0,0))
         self.scr_width = self.screen.get_rect().width
         self.scr_height = self.screen.get_rect().height
 
@@ -70,20 +70,22 @@ class GameMenu():
 
             # Redraw the background
             #self.screen.fill(self.bg_color)
-			#self.screen.blit(pygame.image.load("Imagens/luzes.jpg"))
+            #self.screen.blit(pygame.image.load("luzes.jpg"))
             for item in self.items:
                 if item.is_mouse_selection(pygame.mouse.get_pos()):
-					
+                    
                     item.set_font_color((0, 0, 255))
                     item.set_italic(True)
                     if(item.text == 'Sair' and pygame.mouse.get_pressed()[0]):
-						mainloop = False
+                        mainloop = False
                     elif(item.text == 'Sensor Fotoeletrico' and pygame.mouse.get_pressed()[0]):
-						retcode = subprocess.call('python play.py', shell=True)
-					#	mainloop = False
-						
-					#if(item.text == 'Sensor Fotoeletrico' and pygame.mouse.get_pressed()[0]):
-					#	retcode = call(play.py)
+                        retcode = subprocess.call('python play.py', shell=True)
+                    elif(item.text == 'Efeito Fotovoltaico' and pygame.mouse.get_pressed()[0]):
+                        retcode = subprocess.call('python efeitoEletrico.py', shell=True)
+                    #   mainloop = False
+                        
+                    #if(item.text == 'Sensor Fotoeletrico' and pygame.mouse.get_pressed()[0]):
+                    #   retcode = call(play.py)
                 else:
                     item.set_font_color((255, 255, 255))
                     item.set_italic(False)
@@ -101,4 +103,4 @@ if __name__ == "__main__":
     pygame.display.set_caption('Aplicacoes efeito fotoeletrico')
     gm = GameMenu(screen, menu_items)
     gm.run()
-	
+    

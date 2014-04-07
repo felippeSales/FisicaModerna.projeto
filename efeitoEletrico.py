@@ -14,12 +14,12 @@ pygame.display.set_caption("Efeito Foto Eletrico")
 class FuncoesFisicas():
 	
 	def __init__(self):
-		self.surface = pygame.image.load("Imagens/ampindi.png").convert()
+		self.surface = pygame.image.load("ampindi.png").convert()
 		self.surface.set_colorkey((0,0,0))
 		self.x = 14	
 		self.y = 547
-		self.lampada = 	(pygame.image.load("Imagens/lampadaDesligada.png"),(552,300))
-		self.lampada_on = 	(pygame.image.load("Imagens/lampadaLigada.png"),(552,300))
+		self.lampada = 	(pygame.image.load("lampadaDesligada.png"),(552,300))
+		self.lampada_on = 	(pygame.image.load("lampadaLigada.png"),(552,300))
 		# frequencia = n x 10 ^ 12
 		self.violeta = 789.0
 		self.azul = 668.0
@@ -99,7 +99,7 @@ class FuncoesFisicas():
 class Eletron():
 	movespeed = 1
 	def __init__(self):
-		self.surface = pygame.image.load("Imagens/eletron.png").convert()
+		self.surface = pygame.image.load("eletron.png").convert()
 		self.surface.set_colorkey((0,0,0))
 		#posicao do puto
 		self.x = 227
@@ -134,7 +134,7 @@ class Eletron():
 class Raio():
 	movespeed = 1
 	def __init__(self):
-		self.surface = pygame.image.load("Imagens/radiacao2.png").convert()
+		self.surface = pygame.image.load("radiacao2.png").convert()
 		self.surface.set_colorkey((0,0,0))
 		#posicao do puto
 		self.x = 50
@@ -142,23 +142,23 @@ class Raio():
 	
 	def mudaCorDoRaio(self, cor):
 		if(cor == 0):
-			self.surface = pygame.image.load("Imagens/radiacao5.png").convert()
+			self.surface = pygame.image.load("radiacao5.png").convert()
 			self.surface.set_colorkey((0,0,0))
 			
 		elif(cor == 1):
-			self.surface = pygame.image.load("Imagens/radiacao4.png").convert()
+			self.surface = pygame.image.load("radiacao4.png").convert()
 			self.surface.set_colorkey((0,0,0))
 			
 		elif(cor == 2):
-			self.surface = pygame.image.load("Imagens/radiacao3.png").convert()
+			self.surface = pygame.image.load("radiacao3.png").convert()
 			self.surface.set_colorkey((0,0,0))
 			
 		elif(cor == 3):
-			self.surface = pygame.image.load("Imagens/radiacao2.png").convert()
+			self.surface = pygame.image.load("radiacao2.png").convert()
 			self.surface.set_colorkey((0,0,0))
 			
 		elif(cor == 4):
-			self.surface = pygame.image.load("Imagens/radiacao1.png").convert()
+			self.surface = pygame.image.load("radiacao1.png").convert()
 			self.surface.set_colorkey((0,0,0))
 			
 	def set_surface(self, imagem):
@@ -179,9 +179,9 @@ class Raio():
 
 class Sol():
 	def __init__(self):
-		self.surface = pygame.image.load("Imagens/lua.png").convert()
+		self.surface = pygame.image.load("lua.png").convert()
 		self.surface.set_colorkey((0,0,0))
-		self.nuvem = pygame.image.load("Imagens/nuvem.png").convert()
+		self.nuvem = pygame.image.load("nuvem.png").convert()
 		self.nuvem.set_colorkey((0,0,0))
 		#posicao do puto
 		self.x = 0
@@ -191,13 +191,13 @@ class Sol():
 		
 	def atualizaSol(self ,pos):
 		if pos > 0 and pos <= 7:
-			self.surface = pygame.image.load("Imagens/sol.png").convert()
+			self.surface = pygame.image.load("sol.png").convert()
 			self.surface.set_colorkey((0,0,0))
 		elif pos > 7:
-			self.surface = pygame.image.load("Imagens/InkSun.png").convert()
+			self.surface = pygame.image.load("InkSun.png").convert()
 			self.surface.set_colorkey((0,0,0))
 		else:
-			self.surface = pygame.image.load("Imagens/lua.png").convert()
+			self.surface = pygame.image.load("lua.png").convert()
 			self.surface.set_colorkey((0,0,0))
 		
 	def set_surface(self, imagem):
@@ -219,7 +219,7 @@ class Indicador():
 	def __init__(self):
 		self.sol = Sol()
 		self.pos=0
-		self.surface = pygame.image.load("Imagens/indicador.png").convert()
+		self.surface = pygame.image.load("indicador.png").convert()
 		self.surface.set_colorkey((0,0,0))
 
 		
@@ -263,7 +263,7 @@ class IndicadorH():
 	def __init__(self):
 		self.sol = Sol()
 		self.pos=3
-		self.surface = pygame.image.load("Imagens/indicadorh.png").convert()
+		self.surface = pygame.image.load("indicadorh.png").convert()
 		self.surface.set_colorkey((0,0,0))
 
 		#posicao do puto
@@ -297,12 +297,12 @@ class IndicadorH():
 
 
 class EfeitoVoltaico():
-	circuito = (pygame.image.load("Imagens/PlacasDeNP.png"),(100,100))
-	back  = (pygame.image.load("Imagens/background.png"),(0,0))
-	amperimetro = (pygame.image.load("Imagens/amperimetro.png").convert(),(0,145))
+	circuito = (pygame.image.load("PlacasDeNP.png"),(100,100))
+	back  = (pygame.image.load("background.png"),(0,0))
+	amperimetro = (pygame.image.load("amperimetro.png").convert(),(0,145))
 	amperimetro[0].set_colorkey((0,0,0))	
-	intensidade_bar = (pygame.image.load("Imagens/barra_intensidade.png"),(500,0))
-	frequencia_bar = (pygame.image.load("Imagens/frequencia.png"),(635,95))
+	intensidade_bar = (pygame.image.load("barra_intensidade.png"),(500,0))
+	frequencia_bar = (pygame.image.load("frequencia.png"),(635,95))
 	
 	cursor_pos =(527, 37)
 	intensidade_bar[0].set_colorkey((255,255,255))

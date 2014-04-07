@@ -29,8 +29,8 @@ class Personagem(object):
 	
 	def __init__(self):
 		
-		self.surface = pygame.image.load("Imagens/portaAutomatica/square.png").convert()
-		self.rect = pygame.image.load("Imagens/portaAutomatica/square.png").get_rect()
+		self.surface = pygame.image.load("square.png").convert()
+		self.rect = pygame.image.load("square.png").get_rect()
 		self.surface.set_colorkey((0,255,0))
 		
 		#posicao do puto
@@ -54,7 +54,7 @@ class Personagem(object):
 	def reset(self):
 		self.rect.x = 170
 		self.rect.y = 500
-		self.set_surface("Imagens/portaAutomatica/square.png")
+		self.set_surface("square.png")
 	
 	def key_pressed(self, key):
 		
@@ -68,17 +68,17 @@ class Personagem(object):
 			elif self.verifica_pode_subir():
 				self.rect.y -= self.move_speed
 			
-			self.set_surface("Imagens/portaAutomatica/square.png")
+			self.set_surface("square.png")
 		
 		if key == K_LEFT:
 			if (self.rect.x - self.move_speed) >= 0:
 				self.rect.x -= self.move_speed
-				self.set_surface("Imagens/portaAutomatica/square_left.png")
+				self.set_surface("square_left.png")
 				
 		if key == K_RIGHT:
 			if (self.rect.x + self.move_speed) <= 600:
 				self.rect.x += self.move_speed
-				self.set_surface("Imagens/portaAutomatica/square_right.png")
+				self.set_surface("square_right.png")
 		if key == K_r:
 			self.reset()
 			
@@ -95,7 +95,7 @@ class Personagem(object):
 		
 class Ceu(object):
 	def __init__(self):
-		self.surface = pygame.image.load("Imagens/portaAutomatica/ceu.png").convert()
+		self.surface = pygame.image.load("ceu.png").convert()
 		self.surface.set_colorkey((255,255,255))
 		
 		#posicao do puto
@@ -111,7 +111,7 @@ class Ceu(object):
 
 class Solo(object):
 	def __init__(self):
-		self.surface = pygame.image.load("Imagens/portaAutomatica/chao.png").convert()
+		self.surface = pygame.image.load("chao.png").convert()
 		self.surface.set_colorkey((255,255,255))		
 		
 		#posicao do puto
@@ -127,7 +127,7 @@ class Solo(object):
 
 class Parede(object):
 	def __init__(self):
-		self.surface = pygame.image.load("Imagens/portaAutomatica/wall.png").convert()
+		self.surface = pygame.image.load("wall.png").convert()
 		self.surface.set_colorkey((255,255,255))
 		
 		#posicao do puto
@@ -143,7 +143,7 @@ class Parede(object):
 
 class Sensor(object):
 	def __init__(self):
-		self.surface = pygame.image.load("Imagens/portaAutomatica/sensor.png").convert()
+		self.surface = pygame.image.load("sensor.png").convert()
 		self.surface.set_colorkey((255,255,255))
 		
 		#posicao do puto
@@ -162,7 +162,7 @@ class Raio(object):
 	desenha = True
 	
 	def __init__(self):
-		self.surface = pygame.image.load("Imagens/portaAutomatica/ondaVertical.png").convert()
+		self.surface = pygame.image.load("ondaVertical.png").convert()
 		
 		self.surface.set_colorkey((0,0,0))
 		
@@ -193,7 +193,7 @@ class RaioInvertido(object):
 	desenha = False
 	
 	def __init__(self):
-		self.surface = pygame.image.load("Imagens/portaAutomatica/ondaVerticalInvertida.png").convert()
+		self.surface = pygame.image.load("ondaVerticalInvertida.png").convert()
 		
 		self.surface.set_colorkey((0,0,0))
 		
@@ -221,7 +221,7 @@ class RaioInvertido(object):
 	
 class Luz(object):
 	def __init__(self):
-		self.surface = pygame.image.load("Imagens/portaAutomatica/areaLuz.png").convert()
+		self.surface = pygame.image.load("areaLuz.png").convert()
 		self.rect = self.surface.get_rect()
 		
 		self.surface.set_colorkey((0,0,0))
@@ -245,7 +245,7 @@ class Porta_Esquerda(object):
 	has_to_open = False	
 	
 	def __init__(self):
-		self.surface = pygame.image.load("Imagens/portaAutomatica/porta.png").convert()
+		self.surface = pygame.image.load("porta.png").convert()
 		self.surface.set_colorkey((0,0,0))
 		
 		#posicao do puto
@@ -277,7 +277,7 @@ class Porta_Direita(object):
 	has_to_open = False
 	
 	def __init__(self):
-		self.surface = pygame.image.load("Imagens/portaAutomatica/porta.png").convert()
+		self.surface = pygame.image.load("porta.png").convert()
 		self.surface.set_colorkey((0,0,0))
 		
 		#posicao do puto
