@@ -1,0 +1,1 @@
+Para executar os app basta executar os programas portaAutomatica.exe e efeitoFotoVoltaico.exe
