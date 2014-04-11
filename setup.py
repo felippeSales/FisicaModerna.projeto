@@ -42,7 +42,7 @@ class pygame2exe(py2exe.build_exe.py2exe): #This hack make sure that pygame defa
 class BuildExe:
     def __init__(self):
         #Name of starting .py
-        self.script = "menu.py"
+        self.script = "efeitoEletrico.py"
  
         #Name of program
         self.project_name = "Applet de Efeito Fotoeletrico"
@@ -57,7 +57,7 @@ class BuildExe:
         self.license = "MyApps License"
  
         #Auhor of program
-        self.author_name = "Grupo n"
+        self.author_name = "Grupo e"
         self.author_email = "noname@noemail.com"
         self.copyright = "Copyright (c) "
  
